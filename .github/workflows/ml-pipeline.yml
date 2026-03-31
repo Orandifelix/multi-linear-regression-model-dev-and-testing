@@ -1,4 +1,4 @@
-name: ML Pipeline - Diamonds Regression
+name: ML Notebook Pipeline
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
     branches: [main]
 
 jobs:
-  build-and-run:
+  run-notebook:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install numpy pandas scikit-learn matplotlib
+          pip install numpy pandas scikit-learn matplotlib jupyter
 
-      - name: Run ML script
+      - name: Run Jupyter Notebook
         run: |
-          python diamonds_model.py
+          jupyter nbconvert --to notebook --execute index.ipynb --output executed_notebook.ipynb
